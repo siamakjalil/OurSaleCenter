@@ -1,0 +1,48 @@
+﻿@model IEnumerable<DataLayer.FeaturesViewModel>
+
+<div class="col-md-12" style="overflow: hidden">
+    <div class="col-md-5">
+        @Html.DropDownList("FeatureId", null,"انتخاب کنید" ,htmlAttributes: new { @class = "form-control" })
+    </div>
+    <div class="col-md-5">
+        <input type="text" class="form-control" placeholder="مقدار ویژگی را وارد کنید" id="txtValue" />
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-success" onclick="AddFeature()">
+            <i class="glyphicon glyphicon-plus"></i>
+        </a>
+    </div>
+</div>
+<hr />
+<table class="table table-hover">
+    <tr class="active">
+       
+        <th>
+            نوع ویژگی
+        </th>
+        <th>
+            ویژگی
+        </th>
+       <th>
+           عملیات
+       </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.FeatureTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FeatureValue)
+        </td>
+       <td>
+           <a class="btn btn-danger" onclick="RemoveFeature(@item.FeatureID,'@item.FeatureValue')">
+               <i class="glyphicon glyphicon-trash"></i>
+           </a>
+       </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<DataLayer.ProductGallery>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 style="font-size: 22px">گالری تصاویر</h2>
+@{
+    <div class="breadcrum" id="breadcrum">
+        <ol class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Admin">صفحه اصلی</a>
+            </li>
+            <li>
+                <a href="/admin/Products">لیست محصولات</a>
+            </li>
+            <li class="active"> افزودن محصول جدید</li>
+        </ol>
+    </div>
+}
+<hr />
+
+@using (Html.BeginForm("Create", "ProductGalleries", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+       
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <input type="hidden" name="id" value="@ViewBag.Id"/>
+       <input type="file" name="gallery" id="Gallery" multiple/>
+        <br/>
+        <br/>
+        @foreach (var item in Model)
+        {
+            <div class="col-md-3" style="overflow: hidden">
+                <div class="well well-sm"id="img_@(item.Id)" >
+                    <img id="GalleryImg" class="thumbnail pull-left" src="/Images/Products/@item.ImageName"/><br />
+                    <a class="btn btn-danger btn-xs" onclick="DelGalleryImg(@item.Id)"> حذف</a>
+                </div>
+                </div>
+        }
+        <br />
+        <br />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ثبت" class="btn btn-success btn-block" />
+            </div>
+        </div>
+    </div>
+}
+
+

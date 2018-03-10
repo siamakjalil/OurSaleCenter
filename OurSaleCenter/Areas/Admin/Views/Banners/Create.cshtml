@@ -1,0 +1,106 @@
+﻿@using System.Web.UI.WebControls
+@model DataLayer.Banner
+
+
+@{
+    ViewBag.Title = "پنل مدیریت سایت Can Do";
+}
+
+<h2 style="font-size: 22px">افزودن بنر جدید</h2>
+@{
+    <div class="breadcrum" id="breadcrum">
+        <ol class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Admin">صفحه اصلی</a>
+            </li>
+            <li>
+                <a href="/admin/Banners">لیست بنرها</a>
+            </li>
+            <li class="active"> افزودن بنر جدید</li>
+        </ol>
+    </div>
+}
+<hr/>
+
+
+@using (Html.BeginForm("Create", "Banners", FormMethod.Post, new { enctype = "multipart/form-data" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+  
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+     
+        <div class="form-group">
+            @Html.LabelFor(model => model.IsActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ImageName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div id="wrapper">
+                    <input id="fileUpload" type="file" name="imgUp" /><br />
+                    <div id="image-holder" > </div>
+                </div>
+                @Html.ValidationMessageFor(model => model.ImageName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+       
+        <br/>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="ثبت" class="btn btn-success btn-block" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@section Scripts
+{
+    <script>
+       
+        $("#fileUpload").on('change', function () {
+
+            if (typeof (FileReader) != "undefined") {
+
+                var image_holder = $("#image-holder");
+                image_holder.empty();
+
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $("<img />", {
+                        "src": e.target.result,
+                        "class": "img-thumbnail",
+                        "style": "max-width: 200px"
+                    }).appendTo(image_holder);
+
+                }
+                image_holder.show();
+                reader.readAsDataURL($(this)[0].files[0]);
+            } else {
+                alert("This browser does not support FileReader.");
+            }
+        });
+    </script>
+}

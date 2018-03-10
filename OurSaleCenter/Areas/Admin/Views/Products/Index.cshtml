@@ -1,0 +1,102 @@
+﻿@model IEnumerable<DataLayer.Product>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2 style="font-size: 22px">محصولات گروه @ViewBag.Name </h2>
+@{
+    <div class="breadcrum" id="breadcrum">
+        <ol class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Admin">صفحه اصلی</a>
+            </li>
+            <li class="active"> لیست محصولات</li>
+        </ol>
+    </div>
+}
+<hr />
+
+<p>
+
+    <a class="btn btn-success" href="/admin/Products/Create">
+        افزودن محصول جدید
+    </a>
+</p>
+<table class="table table-hover">
+    <tr class="active">
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+     
+      
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>عملیات</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductCategory.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+          
+      
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+         
+            <td>
+                <img class="thumbnail img-thumbnail" src="/Images/Products/@item.Image" style="max-width: 100px" />
+            </td>
+            <td>
+                <a class="btn btn-warning btn-sm" href="/admin/Products/Edit/@item.Id">
+                    <i class="glyphicon glyphicon-edit"></i>
+                </a>
+                <a class="btn btn-danger btn-sm" onclick="Delete(@item.Id)">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+
+            </div>
+            
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        function Delete(id) {
+            $.get("/Admin/Products/Delete/" + id, function (res) {
+                $("#myModal").modal();
+                $("#myModalLabel").html("حذف محصول");
+                $("#myModalBody").html(res);
+            });
+        }
+    </script>
+
+}

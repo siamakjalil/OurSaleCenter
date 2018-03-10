@@ -1,0 +1,120 @@
+﻿@model IEnumerable<DataLayer.Banner>
+
+@{
+    ViewBag.Title = "پنل مدیریت سایت Can Do";
+}
+<br />
+<h2 style="font-size: 22px">لیست بنرها</h2>
+@{
+    <div class="breadcrum" id="breadcrum">
+        <ol class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Admin">صفحه اصلی</a>
+            </li>
+            <li class="active"> لیست بنرها</li>
+        </ol>
+    </div>
+}
+<hr />
+<p>
+    @*@Html.ActionLink("Create New", "Create")*@
+    <a class="btn btn-success" href="/admin/Banners/Create">
+        افزودن بنر
+    </a>
+</p>
+<div class="table-responsive">
+    <table class="table  table-hover">
+        <tr class="active">
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.DateTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageName)
+            </th>
+
+            <th>عملیات</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+
+                    @Html.DisplayFor(modelItem => item.Title)
+
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IsActive)
+                </td>
+                <td>
+                    <img class="thumbnail img-thumbnail" src="/Images/Banners/@item.ImageName" style="max-width: 100px" />
+                </td>
+
+                <td>
+                    <a class="btn btn-warning btn-sm" href="/admin/Banners/Edit/@item.Id">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-danger btn-sm" onclick="Delete(@item.Id)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<div class="row text-center">
+    <nav>
+        <ul class="pagination">
+
+            @for (int i = 1; i <= (ViewBag.pageCount); i++)
+            {
+                <li class="@(((int)ViewBag.pageID==i)?"active":"")"><a href="/admin/Banners/Index?pageId=@i">@i<span class="sr-only">(current)</span></a></li>
+
+            }
+
+
+        </ul>
+    </nav>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+    <script>
+        function Delete(id) {
+            $.get("/Admin/Banners/Delete/" + id, function (res) {
+                $("#myModal").modal();
+                $("#myModalLabel").html("حذف بنر ");
+                $("#myModalBody").html(res);
+            });
+        }
+    </script>
+
+}

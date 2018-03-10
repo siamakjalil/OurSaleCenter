@@ -1,0 +1,23 @@
+﻿body {
+    background-image: url('../Images/Other/concrete_seamless.png');
+}
+hr {
+    border-top: 1px solid #ffffff;
+}
+.breadcrumb {
+    background-color:inherit !important;
+}
+.breadcrumb > li + li:before {
+        content: ">";
+    padding: 0 5px;
+    color: #cccccc;
+}
+.breadcrumb > .active {
+    color: dimgray !important;
+}
+#RenderBody {
+    min-height: 550px !important;
+}
+.dropdown-menu > li > a :hover ,.dropdown-menu > li > a :focus{
+background-color:  #e7e7e7 !important;
+}

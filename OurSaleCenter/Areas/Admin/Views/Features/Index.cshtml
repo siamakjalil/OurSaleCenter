@@ -1,0 +1,90 @@
+﻿@model IEnumerable<DataLayer.Feature>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="font-size: 22px">ویژگی ها</h2>
+@{
+    <div class="breadcrum" id="breadcrum">
+        <ol class="breadcrumb">
+            <li>
+                <i class="ace-icon fa fa-home home-icon"></i>
+                <a href="~/Admin">صفحه اصلی</a>
+            </li>
+
+            <li class="active"> لیست ویژگی های محصولات</li>
+        </ol>
+    </div>
+}
+<hr />
+<a class="btn   btn-success" onclick="CreateNew()">افزودن گروه جدید </a>
+<br />
+<br />
+<table class="table table-hover">
+    <tr class="active">
+        <th>
+            @Html.DisplayNameFor(model => model.FeatureTitle)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FeatureTitle)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-warning" onclick="Edit(@item.FeatureId)"><i class="glyphicon glyphicon-edit"></i> </a>
+                <a class="btn btn-sm btn-danger" onclick="Delete(@item.FeatureId)"><i class="glyphicon glyphicon-trash"></i> </a>
+            </td>
+        </tr>
+    }
+
+</table>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel"></h4>
+            </div>
+            <div class="modal-body" id="myModalBody">
+
+            </div>
+
+        </div>
+    </div>
+</div>
+@section Scripts
+{
+
+    <script>
+
+        function CreateNew() {
+            $.get("/Admin/features/Create", function(res) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("افزودن گروه جدید");
+                $("#myModalBody").html(res);
+            });
+        }
+
+        function Edit(id) {
+            debugger;
+            $.get("/Admin/features/Edit/" + id, function (res) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("ویرایش گروه");
+                $("#myModalBody").html(res);
+            });
+        }
+
+        function Delete(id) {
+            $.get("/Admin/features/Delete/" + id, function (res) {
+                $("#myModal").modal("show");
+                $("#myModalLabel").html("حذف گروه");
+                $("#myModalBody").html(res);
+            });
+        }
+    </script>
+}

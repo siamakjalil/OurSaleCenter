@@ -1,0 +1,19 @@
+﻿@model DataLayer.Banner
+
+
+@{
+    ViewBag.Title = "پنل مدیریت سایت Can Do";
+}
+
+<h4>آیا از حذف @ViewBag.Name مطمئن هستید؟</h4>
+<div>
+  
+   
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="حذف" class="btn btn-danger" /></div>
+    }
+</div>
