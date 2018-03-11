@@ -71,13 +71,9 @@
     <Compile Include="Migrations\201709241417465_mig-04.Designer.cs">
       <DependentUpon>201709241417465_mig-04.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201710281821492_mig-06.cs" />
-    <Compile Include="Migrations\201710281821492_mig-06.Designer.cs">
-      <DependentUpon>201710281821492_mig-06.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201710281855500_mig-07.cs" />
-    <Compile Include="Migrations\201710281855500_mig-07.Designer.cs">
-      <DependentUpon>201710281855500_mig-07.cs</DependentUpon>
+    <Compile Include="Migrations\201803110548232_mig-05.cs" />
+    <Compile Include="Migrations\201803110548232_mig-05.Designer.cs">
+      <DependentUpon>201803110548232_mig-05.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -112,11 +108,8 @@
     <EmbeddedResource Include="Migrations\201709241417465_mig-04.resx">
       <DependentUpon>201709241417465_mig-04.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710281821492_mig-06.resx">
-      <DependentUpon>201710281821492_mig-06.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201710281855500_mig-07.resx">
-      <DependentUpon>201710281855500_mig-07.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201803110548232_mig-05.resx">
+      <DependentUpon>201803110548232_mig-05.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
